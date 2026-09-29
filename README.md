@@ -10,7 +10,8 @@ This is the **initial version (v0.1.0)**: a single self-contained page.
 - **3D journey map:** Three.js map of Egypt with camera moves driven by GSAP ScrollTrigger as you scroll through the stops.
 - **7 featured stops:** Wadi El-Natroun, Matariya, Old Cairo (Abu Serga & the Hanging Church), Maadi, Gabal El-Teir, Al-Muharraq and Mount Dranka, each with a story, highlights, access info and an illustrated image card.
 - **Partner listings:** hotels, restaurants, transport and experiences per stop (sample data), plus a ride deep-link.
-- **Design:** dark background, warm gold accents, editorial typography (Bodoni Moda / Hanken Grotesk; Amiri / IBM Plex Sans Arabic), glassmorphism panels.
+- **Design:** dark background, warm gold accents, Coptic-inspired typography: Cinzel headings (Greek/Coptic inscription capitals), Alegreya body; Reem Kufi headings and Noto Naskh Arabic body for Arabic; Noto Sans Coptic accent (ⲭⲏⲙⲓ, "Egypt"), glassmorphism panels.
+- Footer credit: Developed by [Orioverse](https://orioverse.com) (translated EN/AR/DE).
 - Accessibility: skip link, focus styles, live-region announcements, `prefers-reduced-motion` support.
 
 ## Run locally
