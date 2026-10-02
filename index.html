@@ -323,7 +323,7 @@ input[type="range"]{ width:100%; accent-color:rgb(var(--gold)); min-height:32px;
 .rail .n{ margin-inline-end:8px; opacity:.7; }
 
 /* content */
-main{ position:relative; z-index:10; pointer-events:none; }
+main{ position:relative; z-index:10; pointer-events:none; overflow-x:clip; } /* clip, not hidden: keeps sticky drawers working and stops any card from widening the page */
 main .hb-glass, main a, main button{ pointer-events:auto; }
 .hero{ min-height:100vh; display:flex; align-items:center; padding:120px 20px 60px; }
 @media (min-width:768px){ .hero{ padding-inline:56px; } }
@@ -1102,9 +1102,14 @@ function initScroll(){
     ScrollTrigger.create({trigger:section,start:"top center",end:"bottom center",onToggle:self=>self.isActive&&setActive(section.dataset.stop)});
     if(!reduce) ScrollTrigger.create({trigger:section,start:"top bottom",end:"bottom top",onUpdate:self=>{ if(section.dataset.stop===activeId) orbitTo((self.progress-0.5)*18); }});
     if(reduce) return;
+    /* The card must never start outside the viewport: an off-screen start widens the page,
+       which on phones stretches every fixed element (header, tab bar, sheets) and, in RTL, shifts them.
+       Phones: rise from below. Wider screens: slide sideways, but only as far as the section's own gutter. */
+    const narrow=()=>window.matchMedia("(max-width:767px)").matches;
+    const gutter=()=>Math.min(56,parseFloat(getComputedStyle(section).paddingInlineEnd)||0);
     gsap.fromTo(section.querySelector("[data-drawer]"),
-      {x:()=>56*getDirSign(),autoAlpha:0},
-      {x:0,autoAlpha:1,ease:"none",scrollTrigger:{trigger:section,start:"top 80%",end:"top 35%",scrub:0.6,invalidateOnRefresh:true}});
+      {x:()=>narrow()?0:gutter()*getDirSign(),y:()=>narrow()?36:0,autoAlpha:0},
+      {x:0,y:0,autoAlpha:1,ease:"none",scrollTrigger:{trigger:section,start:"top 80%",end:"top 35%",scrub:0.6,invalidateOnRefresh:true}});
   });
   ScrollTrigger.create({trigger:"#booking",start:"top center",end:"bottom bottom",onToggle:self=>self.isActive&&setActive(null)});
 }
