@@ -7,9 +7,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Holy Booking</title>
-<link rel="icon" type="image/png" href="assets/brand/icon-180.png?v=2">
-<link rel="apple-touch-icon" href="assets/brand/icon-180.png?v=2">
-<link rel="preload" as="image" href="assets/brand/emblem.webp?v=2" type="image/webp">
+<link rel="icon" type="image/png" href="assets/brand/icon-180.png?v=3">
+<link rel="apple-touch-icon" href="assets/brand/icon-180.png?v=3">
+<link rel="preload" as="image" href="assets/brand/emblem.webp?v=3" type="image/webp">
 <script>document.documentElement.classList.add("is-loading");</script>
 <noscript><style>.loader{display:none!important}</style></noscript>
 <script>
@@ -77,20 +77,20 @@ html[data-lang-switching] [data-i18n-fade]{ opacity:0; }
 .hb-header{ position:fixed; inset-inline:0; top:0; z-index:30; padding:calc(14px + env(safe-area-inset-top,0px)) 14px 0; }
 .hb-header__bar{ max-width:72rem; margin-inline:auto; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:10px 14px 10px 20px; padding-inline-start:20px; padding-inline-end:10px; }
 .brand{ display:inline-flex; align-items:center; flex:none; text-decoration:none; }
-.brand__logo{ display:block; height:36px; width:auto; }
+.brand__logo{ display:block; height:40px; width:auto; }
 html.is-loading{ overflow:hidden; } html.is-loading .brand__logo{ opacity:0; }
 
 /* ---------- opening animation: the emblem appears, then flies into the header ---------- */
 .loader{ position:fixed; inset:0; z-index:200; display:grid; place-content:center; justify-items:center; gap:22px; padding:24px; text-align:center; }
 .loader__bg{ position:absolute; inset:0; background:radial-gradient(110% 85% at 50% 42%, rgb(36 32 26), rgb(var(--ink)) 72%); }
-.loader__seal{ position:relative; width:min(58vw,236px); aspect-ratio:1; display:grid; place-items:center; }
-.loader__logo{ position:relative; width:76%; height:auto; animation:ld-in 1.1s cubic-bezier(.2,.8,.2,1) both; will-change:transform,opacity; }
+.loader__seal{ position:relative; width:min(64vw,264px); aspect-ratio:1; display:grid; place-items:center; }
+.loader__logo{ position:relative; width:78%; height:auto; animation:ld-in 1.1s cubic-bezier(.2,.8,.2,1) both; will-change:transform,opacity; }
 .loader__ring{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
 .loader__ring circle{ fill:none; stroke:rgb(var(--gold) / .16); stroke-width:1; }
 .loader__ring .arc{ stroke:rgb(var(--gold)); stroke-width:1.5; stroke-linecap:round; stroke-dasharray:140 464; transform-origin:50% 50%; animation:ld-spin 1.5s linear infinite; }
 .loader__ring circle, .loader__ring .arc{ transition:stroke .8s, opacity .6s; }
 .loader.is-ready .loader__ring .arc{ opacity:0; } .loader.is-ready .loader__ring circle{ stroke:rgb(var(--gold) / .45); }
-.loader__wordmark{ position:relative; width:min(62vw,230px); height:auto; animation:ld-fade 1s .35s both; }
+.loader__wordmark{ position:relative; width:min(66vw,250px); height:auto; animation:ld-fade 1s .35s both; }
 /* the app waits behind this screen until the visitor presses the button */
 .loader__gate{ position:relative; display:grid; justify-items:center; gap:22px; min-height:128px; margin-top:6px; opacity:0; visibility:hidden; transform:translateY(10px); transition:opacity .8s ease, transform .8s ease, visibility 0s .8s; }
 .loader.is-ready .loader__gate{ opacity:1; visibility:visible; transform:none; transition:opacity .8s ease, transform .8s ease; }
@@ -122,7 +122,7 @@ html.gal-open{ overflow:hidden; }
 .gal{ position:fixed; inset:0; z-index:70; background:radial-gradient(120% 80% at 50% 0%, rgb(34 30 25), rgb(var(--ink)) 60%); display:flex; flex-direction:column; }
 .gal[hidden]{ display:none; }
 .gal__bar{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:calc(14px + env(safe-area-inset-top,0px)) 18px 10px; }
-.gal__bar img{ height:26px; width:auto; display:block; }
+.gal__bar img{ height:32px; width:auto; display:block; }
 .gal__scroll{ flex:1; overflow:auto; overscroll-behavior:contain; padding:10px 18px calc(48px + env(safe-area-inset-bottom,0px)); }
 .gal__head{ max-width:68rem; margin:0 auto 26px; }
 .gal__title{ margin:0; font-family:var(--font-display); font-weight:400; font-size:clamp(2.4rem,8vw,5rem); line-height:1.08; color:rgb(var(--gold-soft)); }
@@ -430,7 +430,7 @@ input[type="range"]{ width:100%; accent-color:rgb(var(--gold)); min-height:32px;
   .sheet{ height:calc(100% - 90px - env(safe-area-inset-bottom,0px)); }
   .hb-header{ padding-inline:10px; }
   .hb-header__bar{ padding:8px 6px 8px 14px; padding-inline-start:14px; padding-inline-end:6px; }
-  .brand__logo{ height:28px; }
+  .brand__logo{ height:30px; }
   .lang-switch button{ padding:6px 9px; font-size:.8rem; }
   .stop{ padding-bottom:calc(12vh + 60px); }
 }
@@ -530,9 +530,9 @@ main .hb-glass, main a, main button{ pointer-events:auto; }
   <i class="loader__bg"></i>
   <div class="loader__seal">
     <svg class="loader__ring" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="96"/><circle class="arc" cx="100" cy="100" r="96"/></svg>
-    <img class="loader__logo" id="loader-logo" src="assets/brand/emblem.webp?v=2" alt="" width="440" height="428">
+    <img class="loader__logo" id="loader-logo" src="assets/brand/emblem.webp?v=3" alt="" width="760" height="540">
   </div>
-  <img class="loader__wordmark" src="assets/brand/wordmark.webp?v=2" alt="Holy Booking" width="520" height="57">
+  <img class="loader__wordmark" src="assets/brand/wordmark.webp?v=3" alt="Holy Booking" width="720" height="180">
   <div class="loader__gate">
     <p class="loader__line" id="loader-line"></p>
     <button type="button" class="btn-gold" id="loader-start"><span></span>
@@ -544,7 +544,7 @@ main .hb-glass, main a, main button{ pointer-events:auto; }
 
 <header class="hb-header">
   <div class="hb-glass hb-header__bar">
-    <a class="brand" href="#overview" data-t-attr="aria-label:ui.siteTitle"><img class="brand__logo" src="assets/brand/logo-horizontal.webp?v=2" alt="" width="610" height="132"></a>
+    <a class="brand" href="#overview" data-t-attr="aria-label:ui.siteTitle"><img class="brand__logo" src="assets/brand/logo-horizontal.webp?v=3" alt="" width="871" height="200" data-icon-cx="0.705"></a>
     <nav class="hb-nav" data-t-attr="aria-label:ui.nav.overview">
       <ul>
         <li class="nav-opt"><a href="#overview" data-i18n-fade data-t="ui.nav.overview"></a></li>
@@ -638,7 +638,7 @@ main .hb-glass, main a, main button{ pointer-events:auto; }
   <div class="sheet__body" id="sheet-body"></div>
 </section>
 <section class="gal" id="gallery" role="dialog" aria-modal="true" aria-labelledby="gal-title" hidden>
-  <div class="gal__bar"><img src="assets/brand/logo-horizontal.webp?v=2" alt="Holy Booking" width="610" height="132">
+  <div class="gal__bar"><img src="assets/brand/logo-horizontal.webp?v=3" alt="Holy Booking" width="871" height="200">
     <button type="button" class="icon-btn" id="gal-close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="gal__scroll">
     <header class="gal__head"><h2 class="gal__title" id="gal-title"></h2><p class="gal__intro" id="gal-intro"></p><span class="gal__rule"></span></header>
@@ -1885,7 +1885,7 @@ try{ const o=new URLSearchParams(location.search).get("open"); if(o==="plan") op
     if(reduce||!window.gsap||!brand||!logo.getBoundingClientRect().width){ L.style.transition="opacity .45s"; L.style.opacity="0"; setTimeout(end,460); return; }
     logo.style.animation="none";
     const a=logo.getBoundingClientRect(), b=brand.getBoundingClientRect();
-    const k=b.height/a.height, tx=(b.left+b.height*.62)-(a.left+a.width/2), ty=(b.top+b.height/2)-(a.top+a.height/2);
+    const k=b.height/a.height, tx=(b.left+b.height*(parseFloat(brand.dataset.iconCx)||.62))-(a.left+a.width/2), ty=(b.top+b.height/2)-(a.top+a.height/2);
     gsap.timeline({onComplete:end})
       .to(L.querySelectorAll(".loader__ring,.loader__wordmark,.loader__gate"),{autoAlpha:0,duration:.4,ease:"power1.out"},0)
       .to(logo,{x:tx,y:ty,scale:k,duration:1.05,ease:"power3.inOut"},.15)
