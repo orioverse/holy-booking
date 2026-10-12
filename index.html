@@ -1358,9 +1358,19 @@ const getDirSign=()=>html.dir==="rtl"?-1:1;
 function initScroll(){
   if(!hasGSAP){ setActive(null); return; }
   gsap.registerPlugin(ScrollTrigger);
-  ScrollTrigger.create({trigger:"#overview",start:"top top",end:"bottom center",onToggle:self=>self.isActive&&setActive(null)});
-  document.querySelectorAll("[data-stop]").forEach(section=>{
-    ScrollTrigger.create({trigger:section,start:"top center",end:"bottom center",onToggle:self=>self.isActive&&setActive(section.dataset.stop)});
+  /* The active stop (map camera, rail, marker) is read from where the sections really are on screen,
+     not from trigger positions measured at start-up: fonts, photos and the opening screen change the
+     page height afterwards, and stale positions used to leave the map on Al-Muharraq for the last stop. */
+  let syncQueued=false;
+  const queueSync=()=>{ if(syncQueued) return; syncQueued=true; requestAnimationFrame(()=>{ syncQueued=false; syncActiveFromLayout(); }); };
+  window.addEventListener("scroll",queueSync,{passive:true});
+  window.addEventListener("resize",queueSync);
+  let refreshTimer=0;
+  const queueRefresh=()=>{ clearTimeout(refreshTimer); refreshTimer=setTimeout(()=>{ ScrollTrigger.refresh(); syncActiveFromLayout(); },150); };
+  if(window.ResizeObserver) new ResizeObserver(queueRefresh).observe(document.body);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(queueRefresh);
+  window.addEventListener("load",queueRefresh);
+  stopSections().forEach(section=>{
     if(!reduce) ScrollTrigger.create({trigger:section,start:"top bottom",end:"bottom top",onUpdate:self=>{ if(section.dataset.stop===activeId) orbitTo((self.progress-0.5)*18); }});
     if(reduce) return;
     /* The card must never start outside the viewport: an off-screen start widens the page,
@@ -1372,7 +1382,19 @@ function initScroll(){
       {x:()=>narrow()?0:gutter()*getDirSign(),y:()=>narrow()?36:0,autoAlpha:0},
       {x:0,y:0,autoAlpha:1,ease:"none",scrollTrigger:{trigger:section,start:"top 80%",end:"top 35%",scrub:0.6,invalidateOnRefresh:true}});
   });
-  ScrollTrigger.create({trigger:"#booking",start:"top center",end:"bottom bottom",onToggle:self=>self.isActive&&setActive(null)});
+  syncActiveFromLayout();
+}
+const stopSections=()=>[...document.querySelectorAll("section[data-stop]")];
+function syncActiveFromLayout(){
+  const mid=innerHeight/2;
+  const booking=document.getElementById("booking");
+  if(booking && booking.getBoundingClientRect().top<=mid){ setActive(null); return; }
+  for(const sec of stopSections()){
+    const r=sec.getBoundingClientRect();
+    if(r.top<=mid && r.bottom>mid){ setActive(sec.dataset.stop); return; }
+  }
+  const ov=document.getElementById("overview");
+  if(ov){ const r=ov.getBoundingClientRect(); if(r.bottom>mid) setActive(null); }
 }
 
 /* ================= App layer: sheets, booking, agencies, AI planner ================= */
