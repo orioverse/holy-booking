@@ -1951,9 +1951,9 @@ try{ const o=new URLSearchParams(location.search).get("open"); if(o==="plan") op
   }
   start.addEventListener("click",finish);
 
-  /* "What is the Holy Family's Journey?": plays the introduction film (0:00-1:15) full screen, then opens the site */
+  /* "What is the Holy Family's Journey?": plays the introduction film (0:00-1:12) full screen, then opens the site */
   const watch=document.getElementById("loader-watch");
-  const FILM={id:"IkAChsTu9IQ", end:75};
+  const FILM={id:"IkAChsTu9IQ", end:72};
   function loadYT(cb,fail){
     if(window.YT&&window.YT.Player) return cb();
     const prev=window.onYouTubeIframeAPIReady;
